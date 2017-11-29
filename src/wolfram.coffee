@@ -15,16 +15,18 @@
 
 Wolfram = require('wolfram').createClient(process.env.HUBOT_WOLFRAM_APPID)
 
+notSures = process.env.HUBOT_WOLFRAM_NOT_SURE || ''
+notSures = (shrug.trim() for shrug in notSures.split('|') when shrug.trim())
+notSures = ['Hmm...not sure'] unless notSures.length
+
 module.exports = (robot) ->
   robot.respond /(question|wfa|wolfram) (.*)$/i, (msg) ->
-    #console.log msg.match
     Wolfram.query msg.match[2], (e, result) ->
-      # console.log result
       if !result or result.length == 0
-        msg.send 'Hmm...not sure'
+        msg.send msg.random notSures
       else if result[1]['subpods'][0]['value'].length > 0
         msg.send result[1]['subpods'][0]['value']
       else if result[1]['subpods'][0]['image'].length > 0
         msg.send result[1]['subpods'][0]['image']
       else
-        msg.send 'Hmm...not sure'
+        msg.send msg.random notSure

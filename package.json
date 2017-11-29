@@ -1,7 +1,7 @@
 {
-  "name": "hubot-wolfram",
+  "name": "@darrinholst/hubot-wolfram",
   "description": "Hubot script to query Wolfram Alpha.",
-  "version": "1.1.0",
+  "version": "2.1.0",
   "main": "./src/wolfram",
   "repository": {
     "type": "git",
